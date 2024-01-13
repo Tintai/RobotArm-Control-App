@@ -1,5 +1,5 @@
-('C:\\Users\\Tintai\\Desktop\\RobotArm '
- 'ControlBox\\build\\robotarm_main\\PYZ-00.pyz',
+('E:\\11) Robotyka\\Programy\\RobotArm '
+ 'Control\\build\\robotarm_main\\PYZ-00.pyz',
  [('__future__',
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\__future__.py',
    'PYMODULE'),
@@ -40,7 +40,7 @@
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\calendar.py',
    'PYMODULE'),
   ('cmd_history',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm ControlBox\\cmd_history.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm Control\\cmd_history.py',
    'PYMODULE'),
   ('contextlib',
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\contextlib.py',
@@ -157,7 +157,7 @@
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\hashlib.py',
    'PYMODULE'),
   ('icon_binary',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm ControlBox\\icon_binary.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm Control\\icon_binary.py',
    'PYMODULE'),
   ('importlib',
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\importlib\\__init__.py',
@@ -265,60 +265,60 @@
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\selectors.py',
    'PYMODULE'),
   ('serial',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\__init__.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\__init__.py',
    'PYMODULE'),
   ('serial.serialcli',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\serialcli.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\serialcli.py',
    'PYMODULE'),
   ('serial.serialjava',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\serialjava.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\serialjava.py',
    'PYMODULE'),
   ('serial.serialposix',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\serialposix.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\serialposix.py',
    'PYMODULE'),
   ('serial.serialutil',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\serialutil.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\serialutil.py',
    'PYMODULE'),
   ('serial.serialwin32',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\serialwin32.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\serialwin32.py',
    'PYMODULE'),
   ('serial.tools',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\__init__.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\__init__.py',
    'PYMODULE'),
   ('serial.tools.list_ports',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\list_ports.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\list_ports.py',
    'PYMODULE'),
   ('serial.tools.list_ports_common',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_common.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_common.py',
    'PYMODULE'),
   ('serial.tools.list_ports_linux',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_linux.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_linux.py',
    'PYMODULE'),
   ('serial.tools.list_ports_osx',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_osx.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_osx.py',
    'PYMODULE'),
   ('serial.tools.list_ports_posix',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_posix.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_posix.py',
    'PYMODULE'),
   ('serial.tools.list_ports_windows',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_windows.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\tools\\list_ports_windows.py',
    'PYMODULE'),
   ('serial.win32',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm '
-   'ControlBox\\venv\\Lib\\site-packages\\serial\\win32.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm '
+   'Control\\venv\\Lib\\site-packages\\serial\\win32.py',
    'PYMODULE'),
   ('shutil',
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\shutil.py',
@@ -387,7 +387,7 @@
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tokenize.py',
    'PYMODULE'),
   ('tooltip',
-   'C:\\Users\\Tintai\\Desktop\\RobotArm ControlBox\\tooltip.py',
+   'E:\\11) Robotyka\\Programy\\RobotArm Control\\tooltip.py',
    'PYMODULE'),
   ('tracemalloc',
    'C:\\Users\\Tintai\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tracemalloc.py',

@@ -993,6 +993,10 @@ reverse_button.grid(row=0, column=1, padx=20, pady=1, sticky="n")
 position_listbox = tk.Listbox(button_frame, height=8, width=60)
 position_listbox.grid(row=1, column=0, columnspan=2, padx=10, pady=1, sticky="w")
 
+scrollbar_position = tk.Scrollbar(button_frame, command=position_listbox.yview)
+scrollbar_position.grid(row=1, column=2, pady=1, padx=(0, 10), sticky='nsew')
+position_listbox['yscrollcommand'] = scrollbar_position.set
+
 position_listbox.bind('<Double-1>', lambda event: moveto_position_fast())
 position_listbox.bind('<Delete>', lambda event: delete_position_fast())
 #position_listbox.bind('<FocusOut>', clear_selection_listbox)
@@ -1108,6 +1112,10 @@ info_text['state'] = 'disabled'
 # Styling configuration for coloring and boldening
 info_text.tag_configure('bold_green', foreground='green', font=('Arial', 10, 'bold'))
 info_text.tag_configure('bold_red', foreground='red', font=('Arial', 10, 'bold'))
+
+scrollbar_info = tk.Scrollbar(communication_frame, command=info_text.yview)
+scrollbar_info.grid(row=1, column=6, pady=0, padx=0, sticky='nsew')
+info_text['yscrollcommand'] = scrollbar_info.set
 
 # Connection status label
 status_label = tk.Label(root, text="Not connected", fg="black")
