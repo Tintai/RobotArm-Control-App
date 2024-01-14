@@ -1,7 +1,7 @@
 #   control_main.py
 #   RobotArm Control v1.1 Tintai
 
-version = "1.1"
+version = "1.2"
 config = "" # TPARA / ROBOT_ARM_2L
 
 import serial
@@ -44,6 +44,18 @@ root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 kinematics_var = tk.StringVar()
 auto_send_g92_var = tk.BooleanVar()
 
+h0_command_var = tk.BooleanVar()
+h0_command_on_var = tk.StringVar()
+h0_command_off_var = tk.StringVar()
+
+h1_command_var = tk.BooleanVar()
+h1_command_on_var = tk.StringVar()
+h1_command_off_var = tk.StringVar()
+
+hb_command_var = tk.BooleanVar()
+hb_command_on_var = tk.StringVar()
+hb_command_off_var = tk.StringVar()
+
 photo = PhotoImage(data=icon_data)
 root.iconphoto(True, photo)
 
@@ -60,7 +72,17 @@ def write_config():
         "gripper_speed": gripper_speed_entry.get(),
         "gripper_dist": gripper_dist_entry.get(),
         "kinematics_type": kinematics_var.get(),
-        "auto_send_g92": auto_send_g92_var.get()
+        "auto_send_g92": auto_send_g92_var.get(),
+        
+        "he0_command": h0_command_var.get(),
+        "he0_command_on": h0_command_on_var.get(),
+        "he0_command_off": h0_command_off_var.get(),
+        "he1_command": h1_command_var.get(),
+        "he1_command_on": h1_command_on_var.get(),
+        "he1_command_off": h1_command_off_var.get(),
+        "hb_command": hb_command_var.get(),
+        "hb_command_on": hb_command_on_var.get(),
+        "hb_command_off": hb_command_off_var.get(),
     }
     with open("config.ini", "w") as config_file:
         for key, value in config_data.items():
@@ -792,7 +814,8 @@ def update_buttons_state():
     if ser is not None and position_listbox.size() > 0:
         run_button['state'] = 'normal'
     else:
-        run_button['state'] = 'disabled'       
+        run_button['state'] = 'disabled'
+
         
 def toggle_manual_control():
     global manual_control_enabled
@@ -869,29 +892,68 @@ def kinematics_type_update():
     print(config)
                 
 def apply_settings_from_config():
+    
+    global h0_textbox_on, h0_textbox_off, h1_textbox_on, h1_textbox_off, hb_textbox_on, hb_textbox_off
     config_data = read_config()
     
     kinematics_var.set(config_data.get("kinematics_type", "TPARA"))
     auto_send_g92_var.set(config_data.get("auto_send_g92", False))
+    
+    h0_command_var.set(config_data.get("he0_command", False))    
+    h1_command_var.set(config_data.get("he1_command", False))
+    hb_command_var.set(config_data.get("hb_command", False))
+    
+    h0_command_var.set(config_data.get("he0_command", False))
+    h0_command_on_var.set(config_data.get("he0_command_on", "M104 S100"))
+    h0_command_off_var.set(config_data.get("he0_command_off", "M104 S0"))
+
+    h1_command_var.set(config_data.get("he1_command", False))
+    h1_command_on_var.set(config_data.get("he1_command_on", "M171 P1"))
+    h1_command_off_var.set(config_data.get("he1_command_off", "M171 P0"))
+
+    hb_command_var.set(config_data.get("hb_command", False))
+    hb_command_on_var.set(config_data.get("hb_command_on", "M170 P1"))
+    hb_command_off_var.set(config_data.get("hb_command_off", "M170 P0"))
+
+    if 'h0_button_on' in globals():
+        h0_button_on['state'] = 'disabled' if not h0_command_var.get() else 'normal'
+    if 'h0_button_off' in globals():
+        h0_button_off['state'] = 'disabled' if not h0_command_var.get() else 'normal'
+
+    if 'h1_button_on' in globals():
+        h1_button_on['state'] = 'disabled' if not h1_command_var.get() else 'normal'
+    if 'h1_button_off' in globals():
+        h1_button_off['state'] = 'disabled' if not h1_command_var.get() else 'normal'
+
+    if 'hb_button_on' in globals():
+        hb_button_on['state'] = 'disabled' if not hb_command_var.get() else 'normal'
+    if 'hb_button_off' in globals():
+        hb_button_off['state'] = 'disabled' if not hb_command_var.get() else 'normal'
+
+    
+    print(f"h0_command_var: {h0_command_var.get()}, h0_command_on_var: {h0_command_on_var.get()}, h0_command_off_var: {h0_command_off_var.get()}, h1_command_var: {h1_command_var.get()}, h1_command_on_var: {h1_command_on_var.get()}, h1_command_off_var: {h1_command_off_var.get()}, hb_command_var: {hb_command_var.get()}, hb_command_on_var: {hb_command_on_var.get()}, hb_command_off_var: {hb_command_off_var.get()}")
+
 
 def show_settings_window():
-    global kinematics_var, auto_send_g92_var
+        
+    global h0_textbox_on; global h0_textbox_off; global h1_textbox_on; global h1_textbox_off; global hb_textbox_on; global hb_textbox_off
+    global h0_command_on_var; global h0_command_off_var
+    
     settings_window = tk.Toplevel(root)
     settings_window.title("Settings")
     settings_window.resizable(False, False)
     settings_window.attributes("-topmost", True)
     settings_window.grab_set()
 
-    settings_window.geometry("280x100+{}+{}".format(root.winfo_x() + 50, root.winfo_y() + 150))
+    settings_window.geometry("280x340+{}+{}".format(root.winfo_x() + 50, root.winfo_y() + 150))
 
-    settings_window.protocol("WM_DELETE_WINDOW", lambda: (write_config(), kinematics_type_update(), settings_window.destroy()))
+    settings_window.protocol("WM_DELETE_WINDOW", lambda: (write_config(), kinematics_type_update(), apply_settings_from_config(), settings_window.destroy()))
 
     # Kinematics type
     kinematics_label = ttk.Label(settings_window, text="Kinematics type:")
     kinematics_label.grid(row=0, column=0, padx=10, pady=5, sticky='w')
 
     kinematics_options = ["TPARA", "ROBOT_ARM_2L"]
-    #kinematics_var.set(kinematics_options[0])
 
     kinematics_dropdown = ttk.Combobox(settings_window, textvariable=kinematics_var, values=kinematics_options, state="readonly")
     kinematics_dropdown.grid(row=0, column=1, padx=10, pady=5, sticky='w')
@@ -899,9 +961,77 @@ def show_settings_window():
     # Auto Send G92 checkbox
     auto_send_checkbox = ttk.Checkbutton(settings_window, text="Auto Send G92 after move", variable=auto_send_g92_var)
     auto_send_checkbox.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky='w')
-
-apply_settings_from_config() 
     
+    separator = ttk.Separator(settings_window, orient='horizontal')
+    separator.grid(row=2, column=0, columnspan=2, sticky='ew', pady=10)
+
+    h0_checkbox = ttk.Checkbutton(settings_window, text="HE0 ON", variable=h0_command_var)
+    h0_checkbox.grid(row=3, column=0, padx=10, pady=5, sticky='w')
+
+    h0_textbox_on = ttk.Entry(settings_window, textvariable=h0_command_on_var)
+    h0_textbox_on.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+    h0_label = ttk.Label(settings_window, text="HE0 OFF")
+    h0_label.grid(row=4, column=0, padx=28, pady=5, sticky='w')
+
+    h0_textbox_off = ttk.Entry(settings_window, textvariable=h0_command_off_var)
+    h0_textbox_off.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+    separator = ttk.Separator(settings_window, orient='horizontal')
+    separator.grid(row=5, column=0, columnspan=2, sticky='ew', pady=10)
+
+    h1_checkbox = ttk.Checkbutton(settings_window, text="HE1 ON", variable=h1_command_var)
+    h1_checkbox.grid(row=6, column=0, padx=10, pady=5, sticky='w')
+
+    h1_textbox_on = ttk.Entry(settings_window, textvariable=h1_command_on_var)
+    h1_textbox_on.grid(row=6, column=1, padx=10, pady=5, sticky='w')
+
+    h1_label = ttk.Label(settings_window, text="HE1 OFF")
+    h1_label.grid(row=7, column=0, padx=28, pady=5, sticky='w')
+
+    h1_textbox_off = ttk.Entry(settings_window, textvariable=h1_command_off_var)
+    h1_textbox_off.grid(row=7, column=1, padx=10, pady=5, sticky='w')
+    
+    separator = ttk.Separator(settings_window, orient='horizontal')
+    separator.grid(row=8, column=0, columnspan=2, sticky='ew', pady=10)
+
+    hb_checkbox = ttk.Checkbutton(settings_window, text="HB ON", variable=hb_command_var)
+    hb_checkbox.grid(row=9, column=0, padx=10, pady=5, sticky='w')
+
+    hb_textbox_on = ttk.Entry(settings_window, textvariable=hb_command_on_var)
+    hb_textbox_on.grid(row=9, column=1, padx=10, pady=5, sticky='w')
+
+    hb_label = ttk.Label(settings_window, text="HB OFF")
+    hb_label.grid(row=10, column=0, padx=28, pady=5, sticky='w')
+
+    hb_textbox_off = ttk.Entry(settings_window, textvariable=hb_command_off_var)
+    hb_textbox_off.grid(row=10, column=1, padx=10, pady=5, sticky='w')
+    
+def mosfet_control(mosfet, state):
+    command_mapping = {
+        "h0": {
+            0: h0_command_off_var.get(),
+            1: h0_command_on_var.get()
+        },
+        "h1": {
+            0: h1_command_off_var.get(),
+            1: h1_command_on_var.get()
+        },
+        "hb": {
+            0: hb_command_off_var.get(),
+            1: hb_command_on_var.get()
+        }
+    }
+
+    if mosfet in command_mapping:
+        if state in command_mapping[mosfet]:
+            command = command_mapping[mosfet][state]
+            send_command_text(command, True)
+            print(command)
+
+        
+apply_settings_from_config()
+
 root.bind("<KeyPress>", on_key)
 
 # Bind the on_close() function to the window close event
@@ -1128,11 +1258,14 @@ control_frame.grid(row=0, column=1, rowspan=2, pady=10, padx=20, sticky='nsew')
 control_frame_set = ttk.LabelFrame(root, text="Control Settings")
 control_frame_set.grid(row=0, column=1, rowspan=2, pady=20, padx=20, sticky='ws')
 
-gripper_frame = ttk.LabelFrame(root, text="Gripper")
-gripper_frame.grid(row=0, column=1, rowspan=2, pady=20, padx=20, sticky='se')
+gripper_frame = ttk.LabelFrame(root, text="Tool")
+gripper_frame.grid(row=0, column=1, rowspan=2, pady=10, padx=20, sticky='se')
+
+gripper_frame_buttons = ttk.LabelFrame(gripper_frame)
+gripper_frame_buttons.grid(row=6, column=0, rowspan=2, pady=0, padx=5, sticky='se')
 
 gripper_frame_set = ttk.LabelFrame(gripper_frame, text="")
-gripper_frame_set.grid(row=6, column=5, rowspan=2, pady=1, padx=1, sticky='se')
+gripper_frame_set.grid(row=6, column=5, rowspan=2, pady=15, padx=5, sticky='se')
 
 # Create a bold font object
 bold_font = font.Font(weight='bold')
@@ -1145,8 +1278,17 @@ y_minus_button = tk.Button(control_frame, text="Y-", command=lambda: move_machin
 z_plus_button = tk.Button(control_frame, text="Z+", command=lambda: move_machine("Z+", float(distance_entry.get()), float(speed_entry.get())), fg="green", font=bold_font)
 z_minus_button = tk.Button(control_frame, text="Z-", command=lambda: move_machine("Z-", float(distance_entry.get()), float(speed_entry.get())), fg="green", font=bold_font)
 
-e0_plus_button = tk.Button(gripper_frame, text="E+", command=lambda: move_machine_e("E+", float(gripper_dist_entry.get()), float(gripper_speed_entry.get())), fg="purple", font=bold_font)
-e0_minus_button = tk.Button(gripper_frame, text="E-", command=lambda: move_machine_e("E-", float(gripper_dist_entry.get()), float(gripper_speed_entry.get())), fg="purple", font=bold_font)
+e0_plus_button = tk.Button(gripper_frame_buttons, text="E+", command=lambda: move_machine_e("E+", float(gripper_dist_entry.get()), float(gripper_speed_entry.get())), fg="purple", font=bold_font, width=5, height=1)
+e0_minus_button = tk.Button(gripper_frame_buttons, text="E-", command=lambda: move_machine_e("E-", float(gripper_dist_entry.get()), float(gripper_speed_entry.get())), fg="purple", font=bold_font, width=5, height=1)
+
+h0_button_on = tk.Button(gripper_frame_buttons, text="H0 On", fg="green", command=lambda: mosfet_control("h0", 1), font=bold_font, width=5, height=1)
+h0_button_off = tk.Button(gripper_frame_buttons, text="H0 Off", fg="red", command=lambda: mosfet_control("h0", 0), font=bold_font, width=5, height=1)
+
+h1_button_on = tk.Button(gripper_frame_buttons, text="H1 On", fg="green", command=lambda: mosfet_control("h1", 1), font=bold_font, width=5, height=1)
+h1_button_off = tk.Button(gripper_frame_buttons, text="H1 Off", fg="red", command=lambda: mosfet_control("h1", 0), font=bold_font, width=5, height=1)
+
+hb_button_on = tk.Button(gripper_frame_buttons, text="HB On", fg="green", command=lambda: mosfet_control("hb", 1), font=bold_font, width=5, height=1)
+hb_button_off = tk.Button(gripper_frame_buttons, text="HB Off", fg="red", command=lambda: mosfet_control("hb", 0), font=bold_font, width=5, height=1)
 
 # Precision movement buttons
 precision_x_plus_button = tk.Button(control_frame, text="+", command=lambda: move_machine("X+", float(precision_entry.get()), float(speed_entry.get())), bg="lightgray", fg="red", font=bold_font)
@@ -1246,8 +1388,14 @@ precision_x_minus_button.grid(row=2, column=0, padx=1, pady=1, ipadx=7, ipady=20
 precision_z_plus_button.grid(row=0, column=5, padx=1, pady=1, ipadx=25, ipady=2)
 precision_z_minus_button.grid(row=5, column=5, padx=1, pady=1, ipadx=26, ipady=2)
 
-e0_plus_button.grid(row=7, column=4, padx=10, pady=5, ipadx=7, ipady=20, sticky='n')
-e0_minus_button.grid(row=7, column=3, padx=10, pady=5, ipadx=7, ipady=20, sticky='n')
+buttons = [
+    (e0_plus_button, 6, 4), (e0_minus_button, 6, 3),
+    (h0_button_on, 7, 4), (h0_button_off, 7, 3),
+    (h1_button_on, 8, 4), (h1_button_off, 8, 3),
+    (hb_button_on, 9, 4), (hb_button_off, 9, 3)
+]
+for button, row, column in buttons:
+    button.grid(row=row, column=column, padx=0, pady=0, ipadx=0, ipady=0, sticky='s')
 
 manual_control_button.grid(row=2, column=2, ipadx=15, ipady=15)
 
@@ -1285,8 +1433,9 @@ if config_data:
 
     gripper_dist_entry.delete(0, tk.END)
     gripper_dist_entry.insert(0, config_data.get("gripper_dist", "15"))
-
+    
 kinematics_type_update()
+apply_settings_from_config()
 
 # Start the main event loop
 scan_ports()  # Added port scanning before the main loop

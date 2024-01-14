@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Tintai\Desktop\RobotArm ControlBox\venv"
+VIRTUAL_ENV="E:\11) Robotyka\Programy\RobotArm Control\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
