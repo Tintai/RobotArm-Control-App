@@ -1,5 +1,5 @@
-#   control_main.py
-#   RobotArm Control v1.1 Tintai
+#   robotarm_main.py
+#   RobotArm Control v1.2 Tintai
 
 version = "1.2"
 config = "" # TPARA / ROBOT_ARM_2L
@@ -1235,7 +1235,7 @@ stop_button.grid(row=0, column=6, padx=5, pady=5, sticky='w')
 add_tooltip(stop_button, "Emergency Stop")
 
 # Information feedback window
-info_text = tk.Text(communication_frame, wrap="word", height=20, width=60)
+info_text = tk.Text(communication_frame, wrap="word", height=20, width=58)
 info_text.grid(row=1, column=0, columnspan=6, pady=10, padx=10, sticky='w')
 info_text['state'] = 'disabled'
 
@@ -1244,7 +1244,7 @@ info_text.tag_configure('bold_green', foreground='green', font=('Arial', 10, 'bo
 info_text.tag_configure('bold_red', foreground='red', font=('Arial', 10, 'bold'))
 
 scrollbar_info = tk.Scrollbar(communication_frame, command=info_text.yview)
-scrollbar_info.grid(row=1, column=6, pady=0, padx=0, sticky='nsew')
+scrollbar_info.grid(row=1, column=5, pady=1, padx=(0, 0), sticky='nse')
 info_text['yscrollcommand'] = scrollbar_info.set
 
 # Connection status label
