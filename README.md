@@ -4,8 +4,10 @@
 
 RobotArm Control is a user-friendly graphical interface for controlling TPARA/SCARA robots using Marlin firmware. This application simplifies the process of managing and commanding your robot, providing an intuitive interface for users at all skill levels.
 
+---
+
 <p align="center">
-  <img src="/icon.ico?raw=true">
+  <img src="/icon.png?raw=true" width="300" height="300">
 </p>
 
 ---
@@ -30,13 +32,29 @@ RobotArm Control is a user-friendly graphical interface for controlling TPARA/SC
    - Clone this repository to your local machine.
    - Build using: `pyinstaller --onefile --noconsole --icon=icon.ico robotarm_main.py`
    - Or download latest [Release](https://github.com/Tintai/RobotArm-Control-App/releases)
+     
+## Hardware & Wirning
+  - Creality v2.2 Silent Board (RAMPS 1.4 with MEGA2560) or any other controller
+  - `X` - rotation, `Y` - lower shank, `Z` - higher shank, `E1` - gripper
+  - Addnotional On/Off devices like electromagnet tool or LED connect to **HE0**, **HE1** or **HB**
 
 ## Commands & Info
 There are special commands available for use in the command input field.
 
-- `/clean` or `/clear` - Clears the log text.
-- `/set` or `/settings` - Opens the settings menu.
+- `/clean` or `/clear` - Clears the log text
+- `/set` or `/settings` - Opens the settings menu
+  
 </br>
+
+- `M104 S100` & `M104 S0` - On/Off HE0, like heater
+- `M171 P1` & `M171 P0` - On/Off HE1
+- `M170 P1` & `M170 P0` - On/Off HB
+
+</br>
+
+- `Shift + Enter` - Sends command to G-Code list
+</br>
+  
 To activate manual control mode, press the "M" button at the center.</br>
 
 - Use arrows to control X and Y. Ctrl+Arrows control Z and E
@@ -44,9 +62,12 @@ To activate manual control mode, press the "M" button at the center.</br>
 ---
 
 ## Screenshots
-
-![Screenshot 1](https://i.imgur.com/ot1k7XE.png)
-![Screenshot 2](https://i.imgur.com/0080tg3.png)
+<details>
+  
+![Screenshot 1](/dist/screen1.png?raw=true)
+![Screenshot 2](/dist/screen2.png?raw=true)
+  
+</details>
 
 ## Contributing
 
