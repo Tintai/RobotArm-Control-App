@@ -172,13 +172,14 @@ def toggle_connection():
         except Exception as e:
             status_label['fg'] = 'red'
             status_label['text'] = f"Error: {str(e)}"
+            disconnect_disable_ui()
     else:
         # Disconnect
         ser.close()
         ser = None
         disconnect_disable_ui()
         
-    update_buttons_state()
+    #update_buttons_state()
     
 def disconnect_disable_ui():
 
@@ -217,7 +218,6 @@ def disconnect_disable_ui():
     g92_button['state'] = 'disabled'
     g90_button['state'] = 'disabled'
     g91_button['state'] = 'disabled'
-
     
 def connect_enable_u():
     
@@ -261,6 +261,13 @@ def gcode_disable_ui():
     move_button['state'] = 'disabled'
     set_position_button['state'] = 'disabled'
     
+    h0_button_on['state'] = 'disabled'
+    h0_button_off['state'] = 'disabled'
+    h1_button_on['state'] = 'disabled'
+    h1_button_off['state'] = 'disabled'
+    hb_button_on['state'] = 'disabled'
+    hb_button_off['state'] = 'disabled'
+    
 def gcode_enable_ui():
     precision_x_plus_button['state'] = 'normal'
     precision_x_minus_button['state'] = 'normal'
@@ -278,6 +285,7 @@ def gcode_enable_ui():
     e0_minus_button['state'] = 'normal'
     move_button['state'] = 'normal'
     set_position_button['state'] = 'normal'
+    tool_button_state()
 
 # Function for reading responses from the port
 def read_from_port():
@@ -914,25 +922,27 @@ def apply_settings_from_config():
     hb_command_var.set(config_data.get("hb_command", False))
     hb_command_on_var.set(config_data.get("hb_command_on", "M170 P1"))
     hb_command_off_var.set(config_data.get("hb_command_off", "M170 P0"))
+    
+    tool_button_state()
+    
+def tool_button_state():
+    if ser is not None and not gcode_running:
+        if 'h0_button_on' in globals():
+            h0_button_on['state'] = 'disabled' if not h0_command_var.get() else 'normal'
+        if 'h0_button_off' in globals():
+            h0_button_off['state'] = 'disabled' if not h0_command_var.get() else 'normal'
 
-    if 'h0_button_on' in globals():
-        h0_button_on['state'] = 'disabled' if not h0_command_var.get() else 'normal'
-    if 'h0_button_off' in globals():
-        h0_button_off['state'] = 'disabled' if not h0_command_var.get() else 'normal'
+        if 'h1_button_on' in globals():
+            h1_button_on['state'] = 'disabled' if not h1_command_var.get() else 'normal'
+        if 'h1_button_off' in globals():
+            h1_button_off['state'] = 'disabled' if not h1_command_var.get() else 'normal'
 
-    if 'h1_button_on' in globals():
-        h1_button_on['state'] = 'disabled' if not h1_command_var.get() else 'normal'
-    if 'h1_button_off' in globals():
-        h1_button_off['state'] = 'disabled' if not h1_command_var.get() else 'normal'
-
-    if 'hb_button_on' in globals():
-        hb_button_on['state'] = 'disabled' if not hb_command_var.get() else 'normal'
-    if 'hb_button_off' in globals():
-        hb_button_off['state'] = 'disabled' if not hb_command_var.get() else 'normal'
-
+        if 'hb_button_on' in globals():
+            hb_button_on['state'] = 'disabled' if not hb_command_var.get() else 'normal'
+        if 'hb_button_off' in globals():
+            hb_button_off['state'] = 'disabled' if not hb_command_var.get() else 'normal'
     
     print(f"h0_command_var: {h0_command_var.get()}, h0_command_on_var: {h0_command_on_var.get()}, h0_command_off_var: {h0_command_off_var.get()}, h1_command_var: {h1_command_var.get()}, h1_command_on_var: {h1_command_on_var.get()}, h1_command_off_var: {h1_command_off_var.get()}, hb_command_var: {hb_command_var.get()}, hb_command_on_var: {hb_command_on_var.get()}, hb_command_off_var: {hb_command_off_var.get()}")
-
 
 def show_settings_window():
         
@@ -1441,5 +1451,7 @@ apply_settings_from_config()
 scan_ports()  # Added port scanning before the main loop
 if auto_connect_var.get():
     auto_connect_handler()  # Call the auto-connect function if the Auto Connect option is checked
+else:
+    disconnect_disable_ui()
 root.after(100, read_from_port)
 root.mainloop()
